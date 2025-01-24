@@ -39,7 +39,7 @@ public class LoginService {
         }
 
         var now = Instant.now();
-        var expiresIn = 60 * 60 * 24 * 30L;
+        var expiresIn = 60 * 60 * 24 * 30L; // 30d
 
         var claims = JwtClaimsSet.builder()
                 .issuer("MpvuAPIv2.0")
