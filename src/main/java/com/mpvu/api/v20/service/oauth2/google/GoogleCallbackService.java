@@ -87,7 +87,7 @@ public class GoogleCallbackService {
 
             confirmPasswordTokenRepository.save(confirmPasswordToken);
 
-            return Map.of("type", "login", "token", jwtEncoder.encode(JwtEncoderParameters.from(claims)).getTokenValue());
+            return Map.of("type", "register", "token", jwtEncoder.encode(JwtEncoderParameters.from(claims)).getTokenValue());
         }
     }
 }
