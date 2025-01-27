@@ -17,7 +17,7 @@ public class Login {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest request) {
-        loginService.login(request);
-        return ResponseEntity.ok().build();
+        String token = loginService.login(request);
+        return ResponseEntity.ok(token);
     }
 }

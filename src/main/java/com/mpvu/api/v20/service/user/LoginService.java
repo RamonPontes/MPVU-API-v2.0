@@ -26,7 +26,7 @@ public class LoginService {
     @Autowired
     JwtEncoder jwtEncoder;
 
-    public void login(LoginRequest loginRequest) {
+    public String login(LoginRequest loginRequest) {
         if (loginRequest.username() == null || loginRequest.password() == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Username and password are required");
         }
@@ -50,6 +50,6 @@ public class LoginService {
 
         var jwtValue = jwtEncoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
 
-        System.out.println(jwtValue);
+        return jwtValue;
     }
 }
