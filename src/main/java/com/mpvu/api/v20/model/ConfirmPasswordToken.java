@@ -1,13 +1,11 @@
 package com.mpvu.api.v20.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.time.Instant;
 
 @Entity
+@Table(name = "t-confirm-password-token")
 public class ConfirmPasswordToken {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
