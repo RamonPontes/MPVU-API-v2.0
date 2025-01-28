@@ -31,14 +31,12 @@ public class TikTokCallbackService {
     @Autowired
     UserTokensRepository userTokensRepository;
 
-    String redirectUrl = "https://4275-2804-d55-4806-1100-30e1-4ac4-aade-4ef8.ngrok-free.app/connect-account/TIKTOK";
-
     public void callback(String userToken, String code) throws IOException, InterruptedException {
         if (userToken == null || code == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User token and code are required");
         }
 
-        JsonNode jsonNode = tikTokTokenService.getAccessTokenFromCode(code, redirectUrl);
+        JsonNode jsonNode = tikTokTokenService.getAccessTokenFromCode(code);
 
         if (!jsonNode.has("refresh_token")) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid code");

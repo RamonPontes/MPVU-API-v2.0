@@ -2,6 +2,8 @@ package com.mpvu.api.v20.service.platforms;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mpvu.api.v20.config.TikTokConfig;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -14,16 +16,23 @@ import java.net.http.HttpResponse;
 public class TikTokTokenService {
     ObjectMapper objectMapper = new ObjectMapper();
 
-    public JsonNode getAccessTokenFromCode(String code, String redirect_uri) throws IOException, InterruptedException  {
+    private final TikTokConfig tikTokConfig;
+
+    @Autowired
+    public TikTokTokenService(TikTokConfig tikTokConfig) {
+        this.tikTokConfig = tikTokConfig;
+    }
+
+    public JsonNode getAccessTokenFromCode(String code) throws IOException, InterruptedException  {
         HttpClient client = HttpClient.newHttpClient();
 
         String url = "https://open.tiktokapis.com/v2/oauth/token/";
 
         String body = "code=" + code +
-                "&client_key=sbaw2ph3axn2dbbr1p" +
-                "&client_secret=QMKPYyJC1h5tr3nydAdOpAiNhhMIlglZ" +
+                "&client_key=" + tikTokConfig.getClientKey() +
+                "&client_secret=" + tikTokConfig.getClientSecret() +
                 "&grant_type=authorization_code" +
-                "&redirect_uri=" + redirect_uri;
+                "&redirect_uri=" + tikTokConfig.getRedirectUri();
 
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(url))
@@ -42,8 +51,8 @@ public class TikTokTokenService {
         String url = "https://open-api.tiktok.com/oauth/refresh_token/";
 
         String body = "refresh_token=" + refreshToken +
-                "&client_secret=QMKPYyJC1h5tr3nydAdOpAiNhhMIlglZ" +
-                "&client_key=sbaw2ph3axn2dbbr1p" +
+                "&client_secret=" + tikTokConfig.getClientSecret() +
+                "&client_key=" + tikTokConfig.getClientKey() +
                 "&grant_type=refresh_token";
 
         HttpRequest request = HttpRequest.newBuilder()
