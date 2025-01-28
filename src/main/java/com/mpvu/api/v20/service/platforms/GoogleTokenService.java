@@ -2,6 +2,8 @@ package com.mpvu.api.v20.service.platforms;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mpvu.api.v20.config.GoogleConfig;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -14,15 +16,22 @@ import java.net.http.HttpResponse;
 public class GoogleTokenService {
     ObjectMapper objectMapper = new ObjectMapper();
 
+    private final GoogleConfig googleConfig;
+
+    @Autowired
+    public GoogleTokenService(GoogleConfig googleConfig) {
+        this.googleConfig = googleConfig;
+    }
+
     public JsonNode getAccessTokenFromCode(String code) throws IOException, InterruptedException  {
         HttpClient client = HttpClient.newHttpClient();
 
         String url = "https://oauth2.googleapis.com/token";
 
         String body = "code=" + code +
-                "&client_id=512386870403-7kn9sf33r5veed963uto9ubgl3hicdav.apps.googleusercontent.com" +
-                "&client_secret=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" +
-                "&redirect_uri=http://localhost:8080/api/v2/oauth2/google/callback" +
+                "&client_id=" + googleConfig.getClientId() +
+                "&client_secret=" + googleConfig.getClientSecret()  +
+                "&redirect_uri=" + googleConfig.getRedirectUri()  +
                 "&grant_type=authorization_code";
 
         HttpRequest request = HttpRequest.newBuilder()
@@ -42,8 +51,8 @@ public class GoogleTokenService {
         String url = "https://oauth2.googleapis.com/token";
 
         String body = "refresh_token=" + refreshToken +
-                "&client_id=512386870403-7kn9sf33r5veed963uto9ubgl3hicdav.apps.googleusercontent.com" +
-                "&client_secret=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" +
+                "&client_id=" + googleConfig.getClientId()  +
+                "&client_secret=" + googleConfig.getClientSecret()  +
                 "&grant_type=refresh_token";
 
         HttpRequest request = HttpRequest.newBuilder()
