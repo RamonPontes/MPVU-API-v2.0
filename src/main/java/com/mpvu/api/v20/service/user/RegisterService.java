@@ -23,7 +23,7 @@ public class RegisterService {
 
     public void register(RegisterRequest registerRequest) {
         if (registerRequest.username() == null || registerRequest.email() == null || registerRequest.password() == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Username and password are required");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Username and password and email are required");
         }
 
         if (!verifyEmail.verify(registerRequest.email())) {
