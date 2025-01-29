@@ -1,4 +1,8 @@
 
+# Api de publicação de vídeo em multiplatformas simultaneamente
+
+MPVU API é uma aplicação desenvolvida em `Spring Boot (Java)` que permite a publicação de vídeos em múltiplas plataformas de forma simultânea. A API oferece integração com o `TikTok` e `Instagram`, utilizando autenticação segura via OAuth2 para garantir a privacidade e a confiabilidade do processo.
+
 ## Documentação da API
 
 #### Login
