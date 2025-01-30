@@ -11,6 +11,7 @@ import com.mpvu.api.v20.repository.UserTokensRepository;
 import com.mpvu.api.v20.service.platforms.GoogleTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.stereotype.Service;
@@ -33,6 +34,9 @@ public class ConfirmPasswordGoogleService {
     @Autowired
     ConfirmPasswordTokenRepository confirmPasswordTokenRepository;
 
+    @Autowired
+    BCryptPasswordEncoder bCryptPasswordEncoder;
+
     public void confirmPassword(ConfirmPasswordRequest confirmPasswordRequest) {
         if (confirmPasswordRequest.password() == null || confirmPasswordRequest.token() == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Password and token are required");
@@ -54,7 +58,7 @@ public class ConfirmPasswordGoogleService {
 
             User user = new User();
 
-            user.setPassword(confirmPasswordRequest.password());
+            user.setPassword(bCryptPasswordEncoder.encode(confirmPasswordRequest.password()));
             user.setUsername(userInfo.get("name").toString().replace("\"",""));
             user.setEmail(userInfo.get("email").toString().replace("\"",""));
 
@@ -64,6 +68,7 @@ public class ConfirmPasswordGoogleService {
 
             userTokens.setUserId(user.getUserId());
             userTokens.setToken(refreshToken);
+            userTokens.setPlatform("google");
 
             userTokensRepository.save(userTokens);
 

@@ -1,4 +1,4 @@
-// https://accounts.google.com/o/oauth2/auth?response_type=code&client_id=512386870403-7kn9sf33r5veed963uto9ubgl3hicdav.apps.googleusercontent.com&redirect_uri=http://localhost:8080/api/v2/oauth2/google/callback&scope=email%20profile&access_type=offline&prompt=consent
+// https://accounts.google.com/o/oauth2/auth?response_type=code&client_id=512386870403-7kn9sf33r5veed963uto9ubgl3hicdav.apps.googleusercontent.com&redirect_uri=http://localhost:8080/api/v2/oauth2/google/callback&scope=profile%20email%20https://www.googleapis.com/auth/youtube.upload&access_type=offline&prompt=consent
 
 package com.mpvu.api.v20.controller.oauth2.google;
 
