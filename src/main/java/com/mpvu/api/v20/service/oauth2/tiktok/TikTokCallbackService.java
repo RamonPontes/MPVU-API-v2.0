@@ -60,6 +60,7 @@ public class TikTokCallbackService {
 
         userTokens.setToken(refreshToken);
         userTokens.setUserId(user.getUserId());
+        userTokens.setPlatform("tiktok");
 
         userTokensRepository.save(userTokens);
     }

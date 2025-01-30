@@ -11,6 +11,7 @@ public class UserTokens {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int tokenId;
     private UUID userId;
+    private String platform;
     private String token;
 
     public int getTokenId() {
@@ -36,4 +37,8 @@ public class UserTokens {
     public void setToken(String token) {
         this.token = token;
     }
+
+    public String getPlatform() { return platform; }
+
+    public void setPlatform(String platform) { this.platform = platform; }
 }
